@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="https://images.vexels.com/media/users/3/157209/isolated/lists/725aa2473489db2e550656210c557f18-icono-de-pizza-con-queso.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="application/javascript" src="js/jquery-3.5.1.min.js"></script>
+    <script type="application/javascript" src="js/Jqueryajax.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap"
+      rel="stylesheet"
+    />
+    <title>PizzaFast</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: "Open Sans", sans-serif;
+      }
+      .background-image {
+          position: fixed;
+          top: -10%;
+          left: -10%;
+          z-index: -1;
+          display: block;
+          background-image: url(https://www.eluniversal.com.mx/sites/default/files/2019/07/03/sky_rocket_pizza_menu_el_universal.jpg);
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover;
+          background-size: cover;
+          background-position: center;
+          width: 120%;
+          height: 120%;
+          -webkit-filter: blur(2px);
+          -moz-filter: blur(2px);
+          -o-filter: blur(2px);
+          -ms-filter: blur(2px);
+          filter: blur(2px);
+          }
+
+        .SalidaPrecio {
+          margin-top: 10px;
+          text-align: center;
+          display:inline-block;
+        }
+      h2 {
+        font-family: "Arizonia", cursive;
+        font-size: 3em;
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 0;
+        color: #fff;
+      }
+      /*Posicionar un form a el lateral del a pagina*/
+      form {
+        position: absolute;
+        top: 50%;
+        left: 70%;
+        transform: translate(-50%, -50%);
+        width: 600px;
+        padding: 40px;
+        background: #fff;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2),
+          0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        border-radius: 12%;
+      }
+      /*Estilos de los elementos del formulario*/
+
+      input[type="text"] {
+        width: 100%;
+        padding: 14px;
+        margin: 8px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: vertical;
+      }
+
+      label {
+        padding: 12px 12px 12px 0;
+        font-size: large;
+      }
+
+      input[type="button"] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 12px;
+        padding: 12px 20px;
+        background-color: #d41c1c;
+        font-size: larger;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        float: left;
+        margin: 5px;
+      }
+
+      input[type="button"]:hover {
+        background-color: #a72626;
+      }
+
+      /*legend en negrita*/
+      legend {
+        font-weight: bold;
+        font-size: larger;
+      }
+      /*posicionar el div pizza a la derecha y en el centro*/
+      .pizza {
+        position: absolute;
+        top: 50%;
+        left: 20%;
+        transform: translate(-50%, -50%);
+        width: 500px;
+        height: 500px;
+        padding: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: rgb(255, 255, 255);
+        box-shadow: 0 10px 20px 0 rgba(231, 231, 231, 0.2),
+          0 5px 5px 0 rgba(228, 228, 228, 0.24);
+        background-image: url("./img/grande/todo.png");
+        background-color: #f1f1f1;
+        background-position: center; 
+        background-repeat: no-repeat; 
+        background-size: cover; 
+      }
+      #gif {
+        text-align: center;
+        position: absolute;
+        width: 20%;
+        height: 20%;
+        top: 1%;
+        left: 61%;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+
+      /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
+      @media screen and (max-width: 600px) {
+        input[type="button"] {
+          width: 100%;
+          margin-top: 0;
+        }
+      }
+      
+
+
+      /*Estilos de los botones*/
+      input[type="radio"]:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -4px;
+        position: relative;
+        background-color: #d1d3d1;
+        content: "";
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+      }
+
+      input[type="radio"]:checked:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -4px;
+        position: relative;
+        background-color: #ff0000;
+        content: "";
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+      }
+
+      input[type="checkbox"]:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -4px;
+        position: relative;
+        background-color: #d1d3d1;
+        content: "";
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+      }
+
+      input[type="checkbox"]:checked:after {
+        width: 15px;
+        height: 15px;
+        border-radius: 15px;
+        top: -2px;
+        left: -4px;
+        position: relative;
+        background-color: #ff0000;
+        content: "";
+        display: inline-block;
+        visibility: visible;
+        border: 2px solid white;
+      }
+      .inputRadio,.inputCheck{
+        margin-left: 5px;
+        text-transform: capitalize;
+        padding: 12px 12px 12px 0;
+        font-size: large;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background-image"></div>
+    <h2>Elige tu pizza</h2>
+    <!-- <img src="./img/createpizza.gif" id="gif" alt="" /> -->
+    <div class="pizza"></div>
+    <form id="formulario" action="">
+      <fieldset>
+        <legend>Información</legend>
+        <label>
+          <input
+            type="text"
+            name="name"
+            id="nombre"
+            placeholder="Nombre"
+          />
+        </label>
+        <label>
+          <input
+            type="text"
+            name="direccion"
+            id="direccion"
+            placeholder="Direccion"
+          />
+        </label>
+        <label>
+          <input
+            type="text"
+            name="email"
+            id="email"
+            placeholder="Email"
+          />
+        </label>
+        <label>
+          <input
+            type="text"
+            name="phone"
+            id="telefono"
+            placeholder="Telefono"
+          />
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>Elige el tamaño</legend>
+        <div id="tamapizza">
+          <label>
+            <input
+              type="radio"
+              name="tamaño"
+              value="Pequeña"
+              class="inputRadio"
+              id="tamaño_Pequeña"
+              onclick="cambiarTamano()"
+            />
+            Pequeña
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="tamaño"
+              value="Mediana"
+              class="inputRadio"
+              id="tamaño_Mediana"
+              onclick="cambiarTamano()"
+            />
+            Mediana
+          </label>
+          <label>
+            <input
+              type="radio"
+              name="tamaño"
+              value="Grande"
+              class="inputRadio"
+              id="tamaño_Grande"
+              onclick="cambiarTamano()"
+            />
+            Grande
+          </label>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Ingredientes</legend>
+        <div id="ingrepizza">
+          <label>
+            <input
+              type="checkbox"
+              value="Queso"
+              name="ingredientes"
+              class="inputCheck"
+              onclick="eligeingrdientes()"
+            />
+            Queso
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="Bacon"
+              name="ingredientes"
+              class="inputCheck"
+              onclick="eligeingrdientes()"
+            />
+            Bacon
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="Tomate"
+              name="ingredientes"
+              class="inputCheck"
+              onclick="eligeingrdientes()"
+            />
+            Tomate
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              value="Pollo"
+              name="ingredientes"
+              class="inputCheck"
+              onclick="eligeingrdientes()"
+            />
+            Pollo
+          </label>
+        </div>
+      </fieldset>
+      <input type="button" value="Procesar el pedido" onclick="validacion()"/>
+
+      <div class="contenedorBTNS">
+        <div class="btns">
+          <input type="button" id="sacarPrecio" value="Sacar pedido">
+          <input type="button" id="refrescar" value="Refrescar">
+        </div>
+        <div id="pedido">
+          <p class="SalidaPrecio" id="parrafo"></p>
+        </div>
+      </div>
+      
+    </form>
+
+    <script>
+      /*
+      
+     __      __          _   _       _                  _                          _    _____ 
+     \ \    / /         | | (_)     | |                (_)                        | |  / ____|
+      \ \  / /    __ _  | |  _    __| |   __ _    ___   _    ___    _ __          | | | (___  
+       \ \/ /    / _` | | | | |  / _` |  / _` |  / __| | |  / _ \  | '_ \     _   | |  \___ \ 
+        \  /    | (_| | | | | | | (_| | | (_| | | (__  | | | (_) | | | | |   | |__| |  ____) |
+         \/      \__,_| |_| |_|  \__,_|  \__,_|  \___| |_|  \___/  |_| |_|    \____/  |_____/                                                                                   
+      
+      */
+      
+      // funcion basica de validación de un formulario
+      function validacion() {
+        console.log("validando los datos del formulario...");
+
+        function precio() {
+          let precio = 0;
+          if (tamaño[0].checked) {
+            precio += 5;
+          } else if (tamaño[1].checked) {
+            precio += 10;
+          } else if (tamaño[2].checked) {
+            precio += 15;
+          }
+          if (ingredientes[0].checked) {
+            precio += 3;
+          }
+          if (ingredientes[1].checked) {
+            precio += 2;
+          }
+          if (ingredientes[2].checked) {
+            precio += 1;
+          }
+          if (ingredientes[3].checked) {
+            precio += 2;
+          }
+          return precio;
+        }
+
+
+
+
+        if (!nombre.value.trim() == "") {
+          console.log("Regex valido Nombre");
+          regexnombre = /^[A-Z][A-z]+$/;
+          if (!nombre.value.match(regexnombre)) {
+              console.log(nombre.value.match(regexnombre));
+              // Si no se cumple la condicion...
+              swal({
+                title: "Error!",
+                text: "El nombre debe tener una letra en mayuscula y no se aceptan numeros!",
+                icon: "error",
+                button: "Ok",
+              });
+              return false;
+            }
+        }else{
+          swal({
+                title: "Error!",
+                text: "El campo nombre debe estar relleno!",
+                icon: "error",
+                button: "Ok",
+              });
+                console.log("Error al validar Nombre");
+                return false;
+      }
+
+
+        if (!direccion.value.trim() == "") {
+          console.log("Regex valido Direccion");
+           regexdirecion = /[A-Za-z0-9'\.\-\s\,]/;
+          if (!direccion.value.match(regexdirecion)) {
+              console.log(direccion.value.match(regexdirecion));
+              // Si no se cumple la condicion...
+              swal({
+                title: "Error!",
+                text: "El campo direccion es erroneo!",
+                icon: "error",
+                button: "Ok",
+              });
+              return false;
+            }
+        }else{
+          swal({
+                title: "Error!",
+                text: "El campo direccion debe estar relleno!",
+                icon: "error",
+                button: "Ok",
+              });
+                console.log("Error al validar Direccion");
+                return false;
+      }
+
+        if (!email.value.trim() == "") {
+          console.log("Regex valido Email");
+          regexemail = /[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/;
+          if (!email.value.match(regexemail)) {
+              console.log(email.value.match(regexemail));
+              // Si no se cumple la condicion...
+              swal({
+                title: "Error!",
+                text: "El email es erroneo!",
+                icon: "error",
+                button: "Ok",
+              });
+              return false;
+            }
+        }else{
+          swal({
+                title: "Error!",
+                text: "El campo email debe estar relleno!",
+                icon: "error",
+                button: "Ok",
+              });
+                console.log("Error al validar Email");
+                return false;
+      }
+
+
+            
+        if (!telefono.value.trim() == "") {
+          console.log("Regex valido Telefono");
+          regextelefono = /(\+34|0034|34)?[-]*(6|7)[ -]*([0-9][ -]*){8}/
+          if (!telefono.value.match(regextelefono)) {
+              console.log(telefono.value.match(regextelefono));
+              // Si no se cumple la condicion...
+              swal({
+                title: "Error!",
+                text: "El telefono es erroneo!",
+                icon: "error",
+                button: "Ok",
+              });
+              return false;
+            }
+        }else{
+          swal({
+                title: "Error!",
+                text: "El campo telefono debe estar relleno!",
+                icon: "error",
+                button: "Ok",
+              });
+                console.log("Error al validar Telefono");
+                return false;
+      }
+
+        //Validando que se haya elegido alguna opción del radio
+        //notese que seleccionamos por name ya que queremos todos
+        //los radio button
+        tamaño = document.getElementsByName("tamaño");
+        var seleccionado = false;
+        for (var i = 0; i < tamaño.length; i++) {
+          if (tamaño[i].checked) {
+            seleccionado = true;
+            break;
+          }
+        }
+
+        if (!seleccionado) {
+          swal({
+            title: "Error!",
+            text: "Se debe selecionar un tamaño!",
+            icon: "error",
+            button: "Ok",
+          });
+          return false;
+        }
+
+        ingredientes = document.getElementsByName("ingredientes");
+        var ingrsele = false;
+        for (var i = 0; i < ingredientes.length; i++) {
+          if (ingredientes[i].checked) {
+            ingrsele = true;
+            break;
+          }
+        }
+
+        if (!ingrsele) {
+          swal({
+            title: "Error!",
+            text: "Se debe selecionar al menos un ingrediente!",
+            icon: "error",
+            button: "Ok",
+          });
+          return false;
+        }
+
+        // Si el script ha llegado a este punto, todas las condiciones
+        // se han cumplido, por lo que se devuelve el valor true
+        // para que se propague el evento de mandar el formulario
+        if (
+          seleccionado &&
+          ingrsele &&
+          nombre.value.trim() != "" &&
+          direccion.value.trim() != "" &&
+          email.value.trim() != "" &&
+          telefono.value.trim() != ""
+        ) {
+          swal({
+            title: "Pedido aceptado!",
+            text:
+              "El pedido a nombre de " +
+              nombre.value +
+              " con el precio de " +
+              precio() +
+              " euros, se ha realizado correctamente!",
+            icon: "success",
+            button: "Ok",
+          });
+            return true;
+        }
+      }
+
+      /*
+           _    _____                                _       _             _                                                           _                     
+          | |  / ____|                              | |     (_)           | |                                                         (_)                    
+          | | | (___       ___    __ _   _ __ ___   | |__    _    ___     | |_    __ _   _ __ ___     __ _   _ __     ___      _ __    _   ____  ____   __ _ 
+      _   | |  \___ \     / __|  / _` | | '_ ` _ \  | '_ \  | |  / _ \    | __|  / _` | | '_ ` _ \   / _` | | '_ \   / _ \    | '_ \  | | |_  / |_  /  / _` |
+     | |__| |  ____) |   | (__  | (_| | | | | | | | | |_) | | | | (_) |   | |_  | (_| | | | | | | | | (_| | | | | | | (_) |   | |_) | | |  / /   / /  | (_| |
+      \____/  |_____/     \___|  \__,_| |_| |_| |_| |_.__/  |_|  \___/     \__|  \__,_| |_| |_| |_|  \__,_| |_| |_|  \___/    | .__/  |_| /___| /___|  \__,_|
+                                                                                                                              | |                            
+                                                                                                                              |_|                            
+      */
+
+      function cambiarTamano() {
+        let queso = document.querySelector('input[value="Queso"]');
+        let bacon = document.querySelector('input[value="Bacon"]');
+        let tomate = document.querySelector('input[value="Tomate"]');
+        let pollo = document.querySelector('input[value="Pollo"]');
+
+        let pequeña = document.querySelector('input[value="Pequeña"]');
+        let mediana = document.querySelector('input[value="Mediana"]');
+        let grande = document.querySelector('input[value="Grande"]');
+
+        let pizza = document.querySelector(".pizza");
+        if (pequeña.checked == true) {
+          pizza.style.width = "300px";
+          pizza.style.height = "300px";
+          pizza.style.backgroundImage = 'url("./img/peque/todo.png")';
+          queso.checked = false;
+          bacon.checked = false;
+          tomate.checked = false;
+          pollo.checked = false;
+        }
+        if (mediana.checked == true) {
+          pizza.style.width = "400px";
+          pizza.style.height = "400px";
+          pizza.style.backgroundImage = 'url("./img/mediana/todo.png")';
+          queso.checked = false;
+          bacon.checked = false;
+          tomate.checked = false;
+          pollo.checked = false;
+        }
+        if (grande.checked == true) {
+          pizza.style.width = "500px";
+          pizza.style.height = "500px";
+          pizza.style.backgroundImage = 'url("./img/grande/todo.png")';
+          queso.checked = false;
+          bacon.checked = false;
+          tomate.checked = false;
+          pollo.checked = false;
+        }
+      }
+      
+      /*
+           _    _____                                _       _             _                                                        _                     
+          | |  / ____|                              | |     (_)           (_)                                                      (_)                    
+          | | | (___       ___    __ _   _ __ ___   | |__    _    ___      _   _ __ ___     __ _    __ _    ___   _ __      _ __    _   ____  ____   __ _ 
+      _   | |  \___ \     / __|  / _` | | '_ ` _ \  | '_ \  | |  / _ \    | | | '_ ` _ \   / _` |  / _` |  / _ \ | '_ \    | '_ \  | | |_  / |_  /  / _` |
+     | |__| |  ____) |   | (__  | (_| | | | | | | | | |_) | | | | (_) |   | | | | | | | | | (_| | | (_| | |  __/ | | | |   | |_) | | |  / /   / /  | (_| |
+      \____/  |_____/     \___|  \__,_| |_| |_| |_| |_.__/  |_|  \___/    |_| |_| |_| |_|  \__,_|  \__, |  \___| |_| |_|   | .__/  |_| /___| /___|  \__,_|
+                                                                                                    __/ |                  | |                            
+                                                                                                   |___/                   |_|                           
+      */
+      
+      function eligeingrdientes() {
+        let queso = document.querySelector('input[value="Queso"]');
+        let bacon = document.querySelector('input[value="Bacon"]');
+        let tomate = document.querySelector('input[value="Tomate"]');
+        let pollo = document.querySelector('input[value="Pollo"]');
+
+        let pequeña = document.querySelector('input[value="Pequeña"]');
+        let mediana = document.querySelector('input[value="Mediana"]');
+        let grande = document.querySelector('input[value="Grande"]');
+
+        let pizza = document.querySelector(".pizza");
+
+        /* Grandes */
+        if (queso.checked == true && grande.checked == true) {
+          pizza.style.backgroundImage = 'url("./img/grande/pizzaqueso.png")';
+        }
+        if (bacon.checked == true && grande.checked == true) {
+          pizza.style.backgroundImage = 'url("./img/grande/pizzabacon.png")';
+        }
+        if (tomate.checked == true && grande.checked == true) {
+          pizza.style.backgroundImage = 'url("./img/grande/pizzatomate.png")';
+        }
+        if (pollo.checked == true && grande.checked == true) {
+          pizza.style.backgroundImage = 'url("./img/grande/pizzapollo.png")';
+        }
+
+        if (
+          queso.checked == true &&
+          bacon.checked == true &&
+          grande.checked == true
+        ) {
+          pizza.style.backgroundImage =
+            'url("./img/grande/pizzabaconqueso.png")';
+        }
+        if (
+          queso.checked == true &&
+          tomate.checked == true &&
+          grande.checked == true
+        ) {
+          pizza.style.backgroundImage =
+            'url("./img/grande/pizzaquesotomate.png")';
+        }
+        if (
+          queso.checked == true &&
+          pollo.checked == true &&
+          grande.checked == true
+        ) {
+          pizza.style.backgroundImage =
+            'url("./img/grande/pizzaquesopollo.png")';
+        }
+        if (
+          bacon.checked == true &&
+          tomate.checked == true &&
+          grande.checked == true
+        ) {
+          pizza.style.backgroundImage =
+            'url("./img/grande/pizzabacontomate.png")';
+        }
+        if (
+          bacon.checked == true &&
+          pollo.checked == true &&
+          grande.checked == true
+        ) {
+          pizza.style.backgroundImage =
+            'url("./img/grande/pizzabaconpollo.png")';
+        }
+        if (
+          tomate.checked == true &&
+          pollo.checked == true &&
+          grande.checked == true
+        ) {
+          pizza.style.backgroundImage =
+            'url("./img/grande/pizzatomatepollo.png")';
+        }
+        if (
+          queso.checked == true &&
+          bacon.checked == true &&
+          tomate.checked == true &&
+          grande.checked == true
+        ) {
+          pizza.style.backgroundImage = 'url("./img/grande/todo.png")';
+        }
+
+        /* Medianas */
+        if (queso.checked == true && mediana.checked == true) {
+          pizza.style.backgroundImage = 'url("./img/mediana/pizzaqueso.png")';
+        }
+        if (bacon.checked == true && mediana.checked == true) {
+          pizza.style.backgroundImage = 'url("./img/mediana/pizzabacon.png")';
+        }
+        if (tomate.checked == true && mediana.checked == true) {
+          pizza.style.backgroundImage = 'url("./img/mediana/pizzatomate.png")';
+        }
+        if (pollo.checked == true && mediana.checked == true) {
+          pizza.style.backgroundImage = 'url("./img/mediana/pizzapollo.png")';
+        }
+
+        if (
+          queso.checked == true &&
+          bacon.checked == true &&
+          mediana.checked == true
+        ) {
+          pizza.style.backgroundImage =
+            'url("./img/mediana/pizzabaconqueso.png")';
+        }
+        if (
+          queso.checked == true &&
+          tomate.checked == true &&
+          mediana.checked == true
+        ) {
+          pizza.style.backgroundImage =
+            'url("./img/mediana/pizzaquesotomate.png")';
+        }
+        if (
+          queso.checked == true &&
+          pollo.checked == true &&
+          mediana.checked == true
+        ) {
+          pizza.style.backgroundImage =
+            'url("./img/mediana/pizzaquesopollo.png")';
+        }
+        if (
+          bacon.checked == true &&
+          tomate.checked == true &&
+          mediana.checked == true
+        ) {
+          pizza.style.backgroundImage =
+            'url("./img/mediana/pizzabacontomate.png")';
+        }
+        if (
+          bacon.checked == true &&
+          pollo.checked == true &&
+          mediana.checked == true
+        ) {
+          pizza.style.backgroundImage =
+            'url("./img/mediana/pizzabaconpollo.png")';
+        }
+        if (
+          tomate.checked == true &&
+          pollo.checked == true &&
+          mediana.checked == true
+        ) {
+          pizza.style.backgroundImage =
+            'url("./img/mediana/pizzatomatepollo.png")';
+        }
+        if (
+          queso.checked == true &&
+          bacon.checked == true &&
+          tomate.checked == true &&
+          mediana.checked == true
+        ) {
+          pizza.style.backgroundImage = 'url("./img/mediana/todo.png")';
+        }
+
+        /* Peque */
+
+        if (queso.checked == true && pequeña.checked == true) {
+          pizza.style.backgroundImage = 'url("./img/peque/pizzaqueso.png")';
+        }
+        if (bacon.checked == true && pequeña.checked == true) {
+          pizza.style.backgroundImage = 'url("./img/peque/pizzabacon.png")';
+        }
+        if (tomate.checked == true && pequeña.checked == true) {
+          pizza.style.backgroundImage = 'url("./img/peque/pizzatomate.png")';
+        }
+        if (pollo.checked == true && pequeña.checked == true) {
+          pizza.style.backgroundImage = 'url("./img/peque/pizzapollo.png")';
+        }
+
+        if (
+          queso.checked == true &&
+          bacon.checked == true &&
+          pequeña.checked == true
+        ) {
+          pizza.style.backgroundImage =
+            'url("./img/peque/pizzabaconqueso.png")';
+        }
+        if (
+          queso.checked == true &&
+          tomate.checked == true &&
+          pequeña.checked == true
+        ) {
+          pizza.style.backgroundImage =
+            'url("./img/peque/pizzaquesotomate.png")';
+        }
+        if (
+          queso.checked == true &&
+          pollo.checked == true &&
+          pequeña.checked == true
+        ) {
+          pizza.style.backgroundImage =
+            'url("./img/peque/pizzaquesopollo.png")';
+        }
+        if (
+          bacon.checked == true &&
+          tomate.checked == true &&
+          pequeña.checked == true
+        ) {
+          pizza.style.backgroundImage =
+            'url("./img/peque/pizzabacontomate.png")';
+        }
+        if (
+          bacon.checked == true &&
+          pollo.checked == true &&
+          pequeña.checked == true
+        ) {
+          pizza.style.backgroundImage =
+            'url("./img/peque/pizzabaconpollo.png")';
+        }
+        if (
+          tomate.checked == true &&
+          pollo.checked == true &&
+          pequeña.checked == true
+        ) {
+          pizza.style.backgroundImage =
+            'url("./img/peque/pizzatomatepollo.png")';
+        }
+        if (
+          queso.checked == true &&
+          bacon.checked == true &&
+          tomate.checked == true &&
+          pequeña.checked == true
+        ) {
+          pizza.style.backgroundImage = 'url("./img/peque/todo.png")';
+        }
+      }
+            /* By Rodrigo Sendino Sanz
+                                             @@@@@@@@@@@@                                  
+                                    @@........@@@@@@@@@........@@                         
+                              @@....@@                         @@....@%                   
+                           @...@@                                   @@...@                
+                       (%..@(            @@(..............@@#           @...@             
+                     @..,@         (@...@@       @..@      .@&...@         @...@          
+                   @..@         @..@.            @..@            @@..@        @..@        
+                 @..@        @..@                @..@                @..@       @..@      
+               @..@       ,..@                   @..@                   %.@       (..%    
+              @@.....*@  /.@                     @..@                     @.@      @..@   
+                   @.@ @..@                      @..@                      @..%     @..@  
+                       @......@#                 @..@                        @.@     @..@ 
+                           @@...../@             @..@                         @.@     @..@
+                               .@......@         @..@                          ..      #.@
+                                    @......@(    @..@                          @.@     @..
+                                        @@.....(@@..@                          /.(     ...
+          @......@ @......................@ /@......@      @......................   .....
+          @......@  ......................@      @......@/ @.....................&   ,,,,,
+          @..@      #.@                          @..@@@.....(@                            
+           %.@      @.@                          @..@     @......@                        
+           @..@      @.@                         @..@         @......@*                   
+            @..       @.@                        @..@             @#.....%@               
+             @..       @.%                       @..@                 %@......            
+              @..@       @.@                     @..@                     %.@  (..@/      
+               @..@        %.@                   @..@                  %..@    @.....@    
+                 @..@        @..@                @..@                @..@       @..@      
+                   @..@         @..@@            @..@            @...@        @..@        
+                     @..@           @...@@*      @..@      @@...(@         .&..@          
+                       (*..@.             @@/............@@@            /@..,@            
+                          @@...@                                     @...@/               
+                              @@....@@                         @@....@@                   
+                                    @/.......@@@@@@@@@@@.......%@%                        
+
+            */
+      
+    </script>
+  </body>
+</html>

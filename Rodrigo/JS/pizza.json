@@ -1,0 +1,36 @@
+{
+    "PIZZA": {
+      "TAM": [
+        {
+          "TAMAÑO": "Pequeña",
+          "PRECIO": 5
+        },
+        {
+          "TAMAÑO": "Mediana",
+          "PRECIO": 10
+        },
+        {
+          "TAMAÑO": "Grande",
+          "PRECIO": 15
+        }
+      ],
+      "ING": [
+        {
+          "INGREDIENTE": "Queso",
+          "PRECIO": 3
+        },
+        {
+          "INGREDIENTE": "Bacon",
+          "PRECIO": 2
+        },
+        {
+          "INGREDIENTE": "Tomate",
+          "PRECIO": 1
+        },
+        {
+          "INGREDIENTE": "Pollo",
+          "PRECIO": 2
+        }
+      ]
+    }
+  }
