@@ -4,8 +4,7 @@
       {
         "VALUE": "pequeño",
         "ID": "peque",
-        "NOMBRE": "Pequeña",
-        "PRECIO": "6"
+        "NOMBRE": "Pequeña"
       },
       {
         "VALUE": "mediana",
@@ -16,30 +15,25 @@
       {
         "VALUE": "grande",
         "ID": "grande",
-        "NOMBRE": "Grande",
-        "PRECIO": "12"
+        "NOMBRE": "Grande"
       }
     ],
     "INGREDIENTES": [
       {
         "VALUE": "pollo",
-        "NOMBRE": "Pollo",
-        "PRECIO": "1"
+        "NOMBRE": "Pollo"
       },
       {
         "VALUE": "bacon",
-        "NOMBRE": "Bacon",
-        "PRECIO": "1"
+        "NOMBRE": "Bacon"
       },
       {
         "VALUE": "queso",
-        "NOMBRE": "Queso",
-        "PRECIO": "1"
+        "NOMBRE": "Queso"
       },
       {
         "VALUE": "tomate",
-        "NOMBRE": "Tomate",
-        "PRECIO": "1"
+        "NOMBRE": "Tomate"
       }
     ],
     "PRECIOS": [
