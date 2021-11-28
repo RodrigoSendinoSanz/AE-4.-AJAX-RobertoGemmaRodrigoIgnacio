@@ -1,0 +1,58 @@
+{
+  "PIZZERIA": {
+    "TAMANOS": [
+      {
+        "VALUE": "pequeño",
+        "ID": "peque",
+        "NOMBRE": "Pequeña",
+        "PRECIO": "6"
+      },
+      {
+        "VALUE": "mediana",
+        "ID": "media",
+        "NOMBRE": "Mediana",
+        "PRECIO": "9"
+      },
+      {
+        "VALUE": "grande",
+        "ID": "grande",
+        "NOMBRE": "Grande",
+        "PRECIO": "12"
+      }
+    ],
+    "INGREDIENTES": [
+      {
+        "VALUE": "pollo",
+        "NOMBRE": "Pollo",
+        "PRECIO": "1"
+      },
+      {
+        "VALUE": "bacon",
+        "NOMBRE": "Bacon",
+        "PRECIO": "1"
+      },
+      {
+        "VALUE": "queso",
+        "NOMBRE": "Queso",
+        "PRECIO": "1"
+      },
+      {
+        "VALUE": "tomate",
+        "NOMBRE": "Tomate",
+        "PRECIO": "1"
+      }
+    ],
+    "PRECIOS": [
+      { 
+        "PEQUENA": 6,
+        "MEDIANA": 12,
+        "GRANDE": 18,
+        "UNINGREDIENTES": 1,
+        "DOSINGREDIENTES": 2,
+        "TRESINGREDIENTES": 3,
+        "CUATROINGREDIENTES": 4
+      }
+
+    ]
+  }
+}

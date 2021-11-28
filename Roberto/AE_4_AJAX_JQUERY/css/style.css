@@ -1,0 +1,143 @@
+/* Fuentes */
+
+@import url('https://fonts.googleapis.com/css?family=Arizonia|Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i');
+
+h2{
+    font-family:'Arizonia';
+    font-size:30px;
+    color: red;
+}
+
+fieldset {
+    font-family: 'Roboto', sans-serif;
+    font-size:15px;
+
+}
+
+body {
+    /* Ruta de la imagen a cargar(OJO TIENE QUE ESTAR DENTRO DE LA CARPETA CSS) */
+    background-image: url('imagenes/fondo.png');
+    /* Centramos el fondo horizontal y verticalmente */
+    background-position: center center;
+    /* El fonde no se repite */
+    background-repeat: no-repeat;
+    /* Fijamos la imagen a la ventana para que no supere el alto de la ventana */
+    background-attachment: fixed;
+    /* El fonde se re-escala autom�ticamente */
+    background-size: cover;
+}
+
+#formularioPedido {
+    display: flex;
+    flex-direction: column;
+    position:fixed;
+    align-items: center;
+    width: 36%;
+    height: 65%;
+    padding:3%;
+    margin-left: 55%;
+    margin-top: 10%;
+    background-color: papayawhip;
+    
+}
+
+#btnBuscarTamano {
+    display: flex;
+    flex-direction: column;
+    position:fixed;
+    align-items: center;
+ 
+    
+    margin-left: 62%;
+    margin-top: 32%;
+
+}
+#btnBuscarIngredientes {
+    display: flex;
+    flex-direction: column;
+    position:fixed;
+    
+ 
+    
+    margin-left: 62%;
+    margin-top: 38%;
+
+}
+#tamanoForm {
+    display: flex;
+    flex-direction: column;
+    position:fixed;
+    align-items: center;
+    
+    margin-left: 70%;
+    margin-top: 30%;
+
+}
+#ingredientesForm {
+    display: flex;
+  
+    flex-direction: column;
+    position:fixed;
+    align-items: center;
+  
+    margin-left: 70%;
+    margin-top: 37%;
+    
+}
+
+
+#botonMostrar {
+    display: flex;
+  
+    flex-direction: column;
+    position:fixed;
+    align-items: center;
+  
+    margin-left: 75%;
+    margin-top: 44%;
+    
+}
+#botonProcesar {
+    display: flex;
+  
+    flex-direction: column;
+    position:fixed;
+    align-items: center;
+  
+    margin-left: 75%;
+    margin-top: 46%;
+    
+}
+#botonCalcularPrecio {
+    display: flex;
+  
+    flex-direction: column;
+    position:fixed;
+    align-items: center;
+  
+    margin-left: 75%;
+    margin-top: 48%;
+    
+}
+#botonPrecio {
+    display: flex;
+  
+    flex-direction: column;
+    position:fixed;
+    align-items: center;
+  
+    margin-left: 75%;
+    margin-top: 50%;
+    
+}
+#precioTotalPizza {
+    display: flex;
+  
+    flex-direction: column;
+    position:fixed;
+    align-items: center;
+  
+    margin-left: 68%;
+    margin-top: 54%;
+    
+}
