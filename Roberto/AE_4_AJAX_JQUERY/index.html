@@ -1,0 +1,527 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>AE-5.AJAX.JQUERY</title>
+    <link rel="StyleSheet" type="text/css" href="css/style.css" />
+    <script type="application/javascript" src="js/jquery-3.5.1.min.js"></script>
+
+
+    <script>
+        //Variables globables. He creado una variable para cada una de las funciones
+        //donde asignare true o false, y esto me valdra para validar la funcion que mostrara el precio.
+        var nombreValido = false;
+        var direccionValido = false;
+        var telefonoValido = false;
+        var emailValido = false;
+        var pizzaSeleccionada = false;
+        var ingredSeleccionado = false;
+
+        //Variables para calcular el precio de la pizza
+        var precioPizzaBase = 0;
+        var precioPizzaIngred = 0;
+
+        //AJAX JQUERY
+
+        const URL_DESTINO = "http://localhost:5500/AE_4_AJAX_JQUERY/";
+        const RECURSO = "datosPizzeria.json";
+
+        $(inicializar);
+        $(finalizarPizza);
+
+        function inicializar() {
+            //metemos el evento onclic al boton
+            $("#botonMostrar").click(peticionAJAX);
+        }
+
+        function peticionAJAX() {
+            
+            $.ajax({
+                'type': 'GET', //Por defecto es GET
+                'url': URL_DESTINO + RECURSO,
+                'async': true, //Por defecto es true
+            }
+            ).done(procesarTamano, procesarIngredientes)//funcion de callback que ejecutamos si todo ha ido bien
+
+        }
+        function finalizarPizza() {
+            //metemos el evento onclic al boton
+            $("#botonCalcularPrecio").click(peticionAJAXPrecio);
+        }
+
+        function peticionAJAXPrecio() {
+            
+            $.ajax({
+                'type': 'GET', //Por defecto es GET
+                'url': URL_DESTINO + RECURSO,
+                'async': true, //Por defecto es true
+            }
+            ).done(calcularPrecioPizza)//funcion de callback que ejecutamos si todo ha ido bien
+
+        }
+
+
+        function validacionNombre() {
+            console.log("Validando nombre")
+
+            formatoNombre = /^[A-Z]/;
+
+            if (nombre.value.match(formatoNombre)) {
+
+                nombreValido = true;
+                console.log("Validado");
+
+            }
+            else {
+                alert('[ERROR] El formato nombre');
+                console.log("Error al validar");
+                console.log(nombreValido);
+                nombreValido = false;
+            }
+
+        }
+
+        function validacionDireccion() {
+            console.log("Validando Direccion")
+            if (direccion.value.trim() == "") {
+                direccionValido = false;
+                alert('[ERROR] El campo direccion debe de estar relleno');
+                console.log("Error al validar");
+
+            }
+            else {
+                direccionValido = true;
+                console.log("Validado");
+            }
+        }
+
+        function validacionTelefono() {
+            console.log("Validando Telefono")
+
+            //Creamos la expresion regular con nombre formatoTelefono
+            //El formato que le he dado ha sido 6XX XX XX XX o 7XX XX XX XX, de numeros moviles dentro de España
+            //Empieza 6 o 7, 2 num 0-9, espacio, 2 num 0-9, espacio, 2 num 0-9....
+            formatoTelefono = /^([6-7])[0-9]{2}[ ][0-9]{2}[ ][0-9]{2}[ ][0-9]{2}$/;
+
+            if (telefono.value.match(formatoTelefono)) {
+
+                telefonoValido = true;
+                console.log("Validado");
+
+            }
+            else {
+                alert('[ERROR] El formato telefono es incorrecto');
+                console.log("Error al validar");
+                telefonoValido = false;
+            }
+
+        }
+
+        function validacionEmail() {
+            console.log("Validando Email")
+
+            //Creamos la expresion regular con nombre formatoEmail
+            //El formato que le he dado ha sido que tiene que detectar una @ y minimo un punto.
+            // Podra ser blabla@loquesea.com o blabla@loquesea.co.uk, etc
+            // palabra@palabra.palabra.....
+            formatoEmail = /\w+@{1}\w+([.])/;
+
+            if (email.value.match(formatoEmail)) {
+
+                emailValido = true;
+                console.log("Validado");
+
+            }
+            else {
+                alert('[ERROR] El formato de Email es incorrecto');
+                console.log("Error al validar");
+                emailValido = false;
+            }
+
+        }
+
+        //Con la funcion validarTamPizza vamos a recorrer un array donde
+        //comprobaremos si esta chequeado o no el tamaño de la pizza
+        function validarTamPizza() {
+            console.log("Validando tamaño de pizza");
+
+            var tamaPizza = document.getElementsByName("tamaPizza");
+
+            for (var i = 0; i < tamaPizza.length; i++) {
+                if (tamaPizza[i].checked) {
+                    pizzaSeleccionada = true;
+                    console.log("Tamaño validado");
+                    break;
+                }
+            }
+
+            if (!pizzaSeleccionada) {
+                pizzaSeleccionada = false;
+                alert('Error] Debe seleccionar al menos un tamaño de pizza.');
+                console.log("Error al validar");
+
+
+            }
+        }
+
+        //Con la funcion validarIngredPizza vamos a recorrer un array donde
+        //comprobaremos si esta chequeado al menos un ingrediente
+        function validarIngredPizza() {
+            console.log("Validando ingredientes de la pizza");
+
+            var ingredPizza = document.getElementsByName("ingredPizza");
+
+            for (var i = 0; i < ingredPizza.length; i++) {
+                if (ingredPizza[i].checked) {
+                    ingredSeleccionado = true;
+                    console.log("Ingrediente validado");
+                    break;
+                }
+            }
+            if (!ingredSeleccionado) {
+                ingredSeleccionado = false;
+                alert('Error] Debe seleccionar al menos un ingrediente para la pizza.');
+                console.log("Error al validar");
+
+
+            }
+        }
+
+        //Con la funcion calcularPrecioPizzavamos a recorrer un array donde
+        //comprobaremos si estan chequeados los tamaños te la pizza e ingredientes y
+        //en funcion de ello calcularemos el precio total de la pizza
+
+
+        //Enviamos la peticion de calcular el precio de la pizza
+
+
+        //Se vuelve a llamar al JSON y se modifican los precios, por los del fichero datosPizzeria.json
+        function calcularPrecioPizza(datosPizzeria) {
+
+
+
+
+            //Respetar las mayusculas y minusculas del JSON    
+            let arrayPrecios = datosPizzeria.PIZZERIA.PRECIOS;
+
+            //Iteramos el el array llamando a los datos necesarios referentes a los tamaños
+            $.each(arrayPrecios, function (i, precio) {
+
+            })
+
+
+
+
+            //Recorremos un array para los tamaño de la pizza y le damos el precio segun la 
+            //opcion elegida
+            var tamaPizza = document.getElementsByName("tamaPizza");
+
+            for (var i = 0; i < tamaPizza.length; i++) {
+
+                if (tamaPizza[0].checked) {
+
+                    precioPizzaBase = arrayPrecios[0].PEQUENA;
+                    console.log("Pizza Pequeña seleccionada");
+                    break;
+                }
+                else if (tamaPizza[1].checked) {
+
+                    precioPizzaBase = arrayPrecios[0].MEDIANA;
+                    console.log("Pizza Mediana seleccionada");
+                    break;
+                }
+                else if (tamaPizza[2].checked) {
+                    precioPizzaBase = arrayPrecios[0].GRANDE;
+                    console.log("Pizza Grande seleccionada");
+                    break;
+                }
+
+
+            }
+            console.log("El precio de tu Pizza base son: " + precioPizzaBase + "€");
+
+            //Recorremos un array para los ingredientes de la pizza y calculamos todas
+            //las variables posibles para calcular los ingredientes que tendra la pizza
+            var ingredPizza = document.getElementsByName("ingredPizza");
+
+            for (var i = 0; i < ingredPizza.length; i++) {
+
+                if (ingredPizza[0].checked && ingredPizza[1].checked && ingredPizza[2].checked && ingredPizza[3].checked) {
+
+                    precioPizzaIngred = arrayPrecios[0].CUATROINGREDIENTES;
+                    console.log("Añadidos todos los ingredientes");
+                    break;
+
+                }
+
+                else if (ingredPizza[0].checked && ingredPizza[1].checked && ingredPizza[2].checked) {
+
+                    precioPizzaIngred = arrayPrecios[0].TRESINGREDIENTES;
+                    console.log("Añadidos bacon, pollo y cebolla");
+                    break;
+
+                }
+                else if (ingredPizza[0].checked && ingredPizza[1].checked && ingredPizza[3].checked) {
+
+                    precioPizzaIngred = arrayPrecios[0].TRESINGREDIENTES;
+                    console.log("Añadidos bacon, pollo y pepperoni");
+                    break;
+
+                }
+                else if (ingredPizza[0].checked && ingredPizza[2].checked && ingredPizza[3].checked) {
+
+                    precioPizzaIngred = arrayPrecios[0].TRESINGREDIENTES;
+                    console.log("Añadidos bacon, cebolla y pepperoni");
+                    break;
+
+                }
+                else if (ingredPizza[1].checked && ingredPizza[2].checked && ingredPizza[3].checked) {
+
+                    precioPizzaIngred = arrayPrecios[0].TRESINGREDIENTES;
+                    console.log("Añadidos pollo, cebolla y pepperoni");
+                    break;
+
+                }
+
+                else if (ingredPizza[0].checked && ingredPizza[1].checked) {
+
+                    precioPizzaIngred = arrayPrecios[0].DOSINGREDIENTES;
+                    console.log("Añadidos bacon y pollo");
+                    break;
+
+                }
+
+                else if (ingredPizza[0].checked && ingredPizza[2].checked) {
+
+                    precioPizzaIngred = arrayPrecios[0].DOSINGREDIENTES;
+                    console.log("Añadidos bacon y cebolla");
+                    break;
+
+                }
+                else if (ingredPizza[0].checked && ingredPizza[3].checked) {
+
+                    precioPizzaIngred = arrayPrecios[0].DOSINGREDIENTES;
+                    console.log("Añadidos bacon y pepperoni");
+                    break;
+
+                }
+                else if (ingredPizza[1].checked && ingredPizza[2].checked) {
+
+                    precioPizzaIngred = arrayPrecios[0].DOSINGREDIENTES;
+                    console.log("Añadidos pollo y cebolla");
+                    break;
+
+                }
+                else if (ingredPizza[1].checked && ingredPizza[3].checked) {
+
+                    precioPizzaIngred = arrayPrecios[0].DOSINGREDIENTES;
+                    console.log("Añadidos pollo y pepperoni");
+                    break;
+
+                }
+                else if (ingredPizza[2].checked && ingredPizza[3].checked) {
+
+                    precioPizzaIngred = arrayPrecios[0].DOSINGREDIENTES;
+                    console.log("Añadidos cebolla y pepperoni");
+                    break;
+
+                }
+
+
+                else if (ingredPizza[0].checked) {
+
+                    precioPizzaIngred = arrayPrecios[0].UNINGREDIENTES;
+                    console.log("Añadido bacon");
+                    break;
+
+                }
+                else if (ingredPizza[1].checked) {
+
+                    precioPizzaIngred = arrayPrecios[0].UNINGREDIENTES;
+                    console.log("Añadido pollo");
+                    break;
+
+
+                }
+                else if (ingredPizza[2].checked) {
+                    precioPizzaIngred = arrayPrecios[0].UNINGREDIENTES;
+                    console.log("Añadido cebolla");
+                    break;
+
+                }
+                else if (ingredPizza[3].checked) {
+                    precioPizzaIngred = arrayPrecios[0].UNINGREDIENTES;
+                    console.log("Añadido pepperoni");
+                    break;
+
+                }
+
+
+
+
+            }
+            console.log("El precio de los ingredientes de tu pizza son: " + precioPizzaIngred + "€");
+
+            console.log("El precio de tu pizza son: " + (precioPizzaBase + precioPizzaIngred) + "€");
+
+        }
+
+        function mostrarPrecio() {
+
+
+
+            if (nombreValido == true && direccionValido == true && telefonoValido == true && emailValido == true
+                && pizzaSeleccionada == true && ingredSeleccionado == true) {
+
+
+
+                console.log("Su pizza esta correcta");
+
+                document.getElementById("precioTotalPizza").innerHTML = "El precio de su pizza son: " + (precioPizzaBase + precioPizzaIngred) + "€";
+            }
+            else {
+
+                console.log("Su pizza no esta correcta");
+
+            }
+
+        }
+
+
+
+
+        function procesarTamano(datosPizzeria) {
+
+            // console.log(datosPizzeria)
+
+            //Creamos la variable para la creacion de los objetos en el DOM
+            var formularioTamano = "<legend>Elija su tamaño</legend>";
+
+            //Respetar las mayusculas y minusculas del JSON    
+            let arrayTamano = datosPizzeria.PIZZERIA.TAMANOS;
+
+            //Iteramos el el array llamando a los datos necesarios referentes a los tamaños
+            $.each(arrayTamano, function (i, tamano) {
+
+            })
+
+
+            // console.log(arrayTamano[0].VALUE);
+
+            //Iteramos el el array llamando a los datos necesarios referentes a los tamaños
+            for (let tamano of arrayTamano) {
+                formularioTamano += "<label><input type='radio' name='tamaPizza'  id='" + tamano.ID + "'>" + tamano.NOMBRE + "</label>";
+
+
+
+
+
+            }
+            tamanoForm.innerHTML = formularioTamano;
+
+        }
+
+
+
+
+        //Igual que tamaños pero con Ingredientes
+        function procesarIngredientes(datosPizzeria) {
+
+
+            //Creamos la variable para la creacion de los objetos en el DOM
+            var formularioIngredientes = "<legend>Elija sus ingredientes</legend>";
+
+            //Respetar las mayusculas y minusculas del JSON    
+            let arrayIngredientes = datosPizzeria.PIZZERIA.INGREDIENTES;
+
+
+
+
+
+            //Iteramos el el array llamando a los datos necesarios referentes a los tamaños
+            $.each(arrayIngredientes, function (i, ingrediente) {
+
+            })
+
+
+            // console.log(arrayIngredientes[0].VALUE);
+
+
+
+            //Iteramos el el array llamando a los datos necesarios referentes a los tamaños
+            for (let ingredientes of arrayIngredientes) {
+                formularioIngredientes += "<label>" +
+                    "<input type='checkbox' id='checkboxIngredientes' name='ingredPizza' value='Checkbox1'/>" + ingredientes.NOMBRE + "</label>"
+
+
+            }
+            ingredientesForm.innerHTML = formularioIngredientes;
+
+        }
+
+    </script>
+</head>
+
+<body>
+    <div id="contenedorPrincipal">
+
+
+
+
+        <!--Usando un return false en onsubmit vamos a conseguir omitir la funcion de submit-->
+        <form id="formularioPedido" onsubmit="return false;">
+            <h2>Rellena el formulario</h2>
+            <fieldset>
+                <legend>Datos personales</legend>
+                <label>Nombre :<input type="text" id="nombre" placeholder="EJEM: Roberto" /></label>
+                <br />
+                <label>Direccion: <input type="text" id="direccion" placeholder="Introduce tu direccion" /></label>
+                <br />
+                <label>Teléfono: <input type="text" id="telefono" placeholder="EJEM: 6XX XX XX XX" /></label>
+                <br />
+                <label>Correo Electronico: <input type="text" id="email"
+                        placeholder="EJEM: pepito@hotmail.com" /></label>
+            </fieldset>
+        </form>
+        <!--Mostramos el formulario de los tamaños pulsando un boton, que viene de los datos del archivo JSON-->
+
+
+        <form id="tamanoForm"></form>
+
+        <!--Mostramos el formulario de los ingredientes pulsando un boton, que viene de los datos del archivo JSON-->
+
+
+        <form id="ingredientesForm"></form>
+
+
+
+
+
+        <input type="submit" id="botonMostrar" value="1 - Mostrar tamaños e ingredientes" />
+
+
+
+        <input type="submit" id="botonProcesar" value="2 - Procesar Pedido" onclick="validacionNombre(); 
+        validacionDireccion(); validacionTelefono(); validacionEmail(); validarTamPizza();validarIngredPizza()" ; />
+
+
+        <button id="botonCalcularPrecio">3 - Validar Precio</button>
+
+
+        <input type="submit" id="botonPrecio" value="4 - Ver precio total" onclick="mostrarPrecio()" ; />
+
+
+        <h3 id="precioTotalPizza"></h3>
+
+
+
+
+
+
+    </div>
+
+</body>
+
+</html>
