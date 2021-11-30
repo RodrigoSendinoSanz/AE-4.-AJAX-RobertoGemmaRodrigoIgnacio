@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="https://images.vexels.com/media/users/3/157209/isolated/lists/725aa2473489db2e550656210c557f18-icono-de-pizza-con-queso.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="estilos.css">
+    <script type="text/javascript" src="funcForm.js"></script>
+    <title>PizzaFast</title>
+
+  </head>
+  <body>
+    <div class="background-image"></div>
+    <h2>Elige tu pizza</h2>
+    <!-- <img src="./img/createpizza.gif" id="gif" alt="" /> -->
+    <div class="pizza"></div>
+    <form id="formulario" action="">
+      <fieldset>
+        <legend>Información</legend>
+        <label>
+          <input
+            type="text"
+            name="name"
+            id="nombre"
+            placeholder="Nombre"
+          />
+        </label>
+        <label>
+          <input
+            type="text"
+            name="direccion"
+            id="direccion"
+            placeholder="Direccion"
+          />
+        </label>
+        <label>
+          <input
+            type="text"
+            name="email"
+            id="email"
+            placeholder="Email"
+          />
+        </label>
+        <label>
+          <input
+            type="text"
+            name="phone"
+            id="telefono"
+            placeholder="Telefono"
+          />
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>Elige el tamaño</legend>
+        <label>
+          <input
+            type="radio"
+            name="tamaño"
+            value="pequeño"
+            id="peque"
+            onclick="cambiarTamano()"
+          />
+          Pequeña
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="tamaño"
+            value="mediana"
+            id="mediano"
+            onclick="cambiarTamano()"
+          />
+          Mediana
+        </label>
+        <label>
+          <input
+            type="radio"
+            name="tamaño"
+            value="grande"
+            id="grande"
+            onclick="cambiarTamano()"
+          />
+          Grande
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>Ingredientes</legend>
+        <label>
+          <input
+            type="checkbox"
+            value="queso"
+            name="ingredientes"
+            onclick="eligeingrdientes()"
+          />
+          Queso
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="bacon"
+            name="ingredientes"
+            onclick="eligeingrdientes()"
+          />
+          Bacon
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="tomate"
+            name="ingredientes"
+            onclick="eligeingrdientes()"
+          />
+          Tomate
+        </label>
+        <label>
+          <input
+            type="checkbox"
+            value="pollo"
+            name="ingredientes"
+            onclick="eligeingrdientes()"
+          />
+          Pollo
+        </label>
+      </fieldset>
+      <input type="button" value="Procesar el pedido" onclick="validacion()"/>
+      <input type="button" id="verPrecio" value="Ver Precio">
+    
+    </form>
+  </body>
+</html>
