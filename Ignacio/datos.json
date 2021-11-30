@@ -1,0 +1,31 @@
+{
+    "pizza":{
+        "tamaño":[
+        {
+            "tamaño" : "Pequeña",
+            "precio" : 5
+        },{
+            "tamaño" : "Mediana",
+            "precio" : 10
+        },{
+            "tamaño" : "Grande",
+            "precio" : 15
+        }
+        ],
+        "ingradientes":[
+        {
+            "ingradiente":"peperoni",
+            "precio": 1
+        },{
+            "ingradiente":"bacon",
+            "precio": 1
+        },{
+            "ingradiente":"provolone",
+            "precio": 1
+        },{
+            "ingradiente":"suizo",
+            "precio": 1
+        }
+        ]
+    }
+}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Pizzeria</title>
+        <script type=text/javascript src="funcionamiento.js"></script>
+        <script type=text/javascript src="ajaxact4.js"></script>
+    </head>
+        <!--
+            Nombre
+            Dirección
+            Teléfono
+            Email
+            Un radio button con el tamaño de la pizza, pudiendo ser pequeña, mediana o grande
+            4 Checkbox con los diferentes ingredientes de la pizza
+            Un botón de procesar el pedido
+                                            -->
+    <body>
+   
+       <form id="pedido" action="">
+           <label for="nombre">Nombre
+           <input type="text" id="nombre" name="nombre" >
+            </label>
+           <br></br>
+           <label for="direccion">Dirección
+           <input type="text" id="direccion" name="direccion" >
+            </label>
+           <br></br>
+           <label for="telefono">Teléfono
+           <input type="text" id="telefono" name="telefono" >
+            </label>
+           <br></br>
+           <label for="email">Email
+           <input type="text" id="email" name="email" >
+            </label>
+           <br></br>
+           <label for="tamaño">Tamaño
+           <br></br>
+           <input type="radio" id="pequeña" name="tamaño" value="pequeña">Pequeña</input>
+           <input type="radio" id="mediana" name="tamaño" value="mediana">Mediana</input>
+           <input type="radio" id="grande" name="tamaño" value="grande">Grande</input>
+            </label>
+           <br></br>
+           <label for="ingredientes">Ingredientes
+           <br></br>
+           <input type="checkbox" id="peperoni" name="ingredientes" value="peperoni">Peperoni</input>
+           <input type="checkbox" id="bacon" name="ingredientes" value="bacon">Bacon</input>
+           <input type="checkbox" id="provolone" name="ingredientes" value="provolone">Queso Provolone</input>
+           <input type="checkbox" id="suizo" name="ingredientes" value="suizo">Queso Suizo curado</input>
+           <input type="button" name="total" id="pedido" value="Ver precio total">
+           <p class="solucion" id="textoo"></p>
+            </label>
+           <br></br>
+           <input type="submit" name="pedido" id="procesar" value="Pedir">
+       </form>
+    </body>
+</html>
